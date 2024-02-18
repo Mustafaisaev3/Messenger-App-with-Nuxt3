@@ -10,10 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "@vueuse/core": "^10.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-vue-next": "^0.331.0",
     "nuxt": "^3.10.2",
+    "nuxt-icon": "^0.6.8",
     "radix-vue": "^1.4.6",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
