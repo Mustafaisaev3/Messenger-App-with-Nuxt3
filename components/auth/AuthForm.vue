@@ -65,7 +65,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onBeforeMount } from 'vue'
+import { useRouter } from 'vue-router';
 import { required, email, minLength, helpers } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import { toast } from 'vue3-toastify';
@@ -74,6 +75,17 @@ import type { ToastOptions } from 'vue3-toastify/dist/index.d.ts'
 import Input from '../Input.vue';
 import { Button } from '@/components/ui/button'
 import AuthSocialButton from './AuthSocialButton.vue';
+
+const { status, signIn } = useAuth()
+const router = useRouter()
+
+onBeforeMount(() => {
+  if (status.value === 'authenticated') {
+    router.push('/users')
+  }
+})
+
+console.log(status.value)
 
 type Variant = 'LOGIN' | 'REGISTER'
 
@@ -147,18 +159,25 @@ async function handleSubmit() {
           password: formData.password,
         },
       });
+
       if (error.value) {
         toast.error(error.value.message, {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark'
-      });
+          position: toast.POSITION.TOP_CENTER,
+          theme: 'dark'
+        });
       }
       if (data.value) {
         toast.success('Пользователь удачно зарегистрирован!', {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark'
-      })
+          position: toast.POSITION.TOP_CENTER,
+          theme: 'dark'
+        })
       }
+
+      signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
     } catch (error) {
     } finally {
       isLoading.value = false;
@@ -186,15 +205,16 @@ async function handleSubmit() {
       });
 
       if (result?.ok && !result.error) {
+        router.push('/users')
         toast.success('Вы удачно авторизовались!', {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark'
-      })
+          position: toast.POSITION.TOP_CENTER,
+          theme: 'dark'
+        })
       } else {
         toast.error('Ощибка авторизации', {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'dark'
-      });
+          position: toast.POSITION.TOP_CENTER,
+          theme: 'dark'
+        });
       }
     } catch (error) {
     } finally {
@@ -206,7 +226,6 @@ async function handleSubmit() {
 
 
 // --------- Social Auth action ---------- //
-const { signIn } = useAuth();
 
 const socialAction = async (action: string) => {
   await signIn(action, { redirect: false });

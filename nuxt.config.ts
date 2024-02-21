@@ -4,8 +4,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss', 
     'shadcn-nuxt',
-    'nuxt-icon',
-    '@sidebase/nuxt-auth'
+    '@sidebase/nuxt-auth',
+    'nuxt-icon'
   ],
   components: [
     {
