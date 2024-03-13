@@ -6,8 +6,4 @@
 <script setup lang="ts">
 // import { useAuth } from '@sidebase/nuxt-auth'
 const { signOut } = useAuth()
-
-definePageMeta({
-    layout: 'users'
-})
 </script>

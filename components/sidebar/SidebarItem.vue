@@ -46,9 +46,9 @@ interface ItemProps {
 const currentRoute = useRoute();
 
 const { item } = defineProps({
-    item: {
-        type: Object as PropType<ItemProps>,
-        required: true
-    }
+  item: {
+    type: Object as PropType<ItemProps>,
+    required: true
+  }
 })
 </script>

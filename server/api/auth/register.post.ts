@@ -19,9 +19,6 @@ export default defineEventHandler(async (event: H3Event) => {
                 statusMessage: 'Missing Info'
             })
 
-
-
-
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
