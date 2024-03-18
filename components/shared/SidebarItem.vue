@@ -8,7 +8,7 @@
         <Tooltip>
             <TooltipTrigger as-child>
                 <div 
-                  class="w-12 h-12 flex flex-col items-center rounded-md hover:bg-[#ff4f8f] cursor-pointer py-2"
+                  class="aa w-12 h-12 flex flex-col items-center rounded-md hover:bg-[#ff4f8f] cursor-pointer py-2"
                   :class="{
                     'bg-[#ff4f8f]': currentRoute.path.includes(item.path!),
                   }"
@@ -52,3 +52,10 @@ const { item } = defineProps({
     }
 })
 </script>
+
+<style>
+.aa {
+  background: rgb(255,139,181);
+  background: linear-gradient(90deg, rgba(255,139,181,1) 0%, rgba(255,99,156,1) 35%, rgba(255,79,143,1) 100%);;
+}
+</style>

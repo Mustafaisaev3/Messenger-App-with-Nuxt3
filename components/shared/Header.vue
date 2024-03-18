@@ -37,3 +37,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 </script>
+
+
+
+function returnBetweens (a,b) {
+    const result = []
+    for (let i=a; i < b; i++ ) {
+        result.push(i)
+    }
+
+    return result
+}

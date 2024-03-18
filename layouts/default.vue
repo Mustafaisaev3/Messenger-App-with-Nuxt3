@@ -1,9 +1,9 @@
 <template>
-    <div class="w-full h-auto flex">
+    <div class="w-full h-auto flex bg-[#202a41] ">
         <Sidebar />
         <div class="w-full h-screen lg:pl-[80px]">
             <Header />
-            <div class="w-full h-auto bg-[#202a41] pt-[100px]">
+            <div class="w-full h-full bg-[#202a41] pt-[80px]">
                 <slot></slot>
             </div>
             <MobileFooter />

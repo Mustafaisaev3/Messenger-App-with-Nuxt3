@@ -76,3 +76,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* assets/scrollbar.css */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  /* background: #4e4e4e; */
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff4f8f;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fa70a2;
+}
