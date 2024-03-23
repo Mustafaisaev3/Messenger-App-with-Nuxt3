@@ -25,22 +25,22 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 <template>
     <div 
-      class="input-container h-10 flex items-center bg-[#202a41] border border-[#4e4e4e] rounded-sm px-2 py-2 focus-within:border-[#ff4f906c]"
+      class="input-container h-10 flex items-center bg-[#202a41] border border-[#727272] rounded-sm px-2 py-2 focus-within:border-[#ff4f906c]"
       :class="{
         'border-red-500': error,
         // 'border-[#42d392]': !error
       }"
     >
-        <IconCSS v-if="leftIcon" :name="leftIcon" class="left-icon text-[26px] text-[#656565]"/>
+        <IconCSS v-if="leftIcon" :name="leftIcon" class="left-icon text-[26px] text-[[#727272]]"/>
         <input 
           v-model="modelValue" 
           :placeholder="placeholder" 
           :class="cn(
-            'w-full px-2 bg-transparent placeholder:text-[#656565] border-[#444444] focus:border-1 text-white outline-none', 
+            'w-full px-2 bg-transparent placeholder:text-[[#727272]] border-[#444444] focus:border-1 text-white outline-none', 
             props.class ?? ''
           )"
         >
-        <IconCSS v-if="rightIcon" :name="rightIcon" class="right-icon text-[26px] text-[#656565]"/>
+        <IconCSS v-if="rightIcon" :name="rightIcon" class="right-icon text-[26px] text-[[#727272]]"/>
     </div>
 </template>
 

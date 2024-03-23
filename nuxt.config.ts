@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     '@sidebase/nuxt-auth',
     'nuxt-icon'
   ],
+  extends: ['nuxt-emoji'],
   components: [
     {
       path: '~/components/ui',

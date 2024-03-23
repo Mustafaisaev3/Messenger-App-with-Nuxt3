@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="flex items-center">
-            <span class="block rounded-full bg-green-400 ring-0ring-white top-0 right-0 h-1 w-1 md:h-2 md:w-2" />
+            <span class="block rounded-full bg-[#ff4f8f] ring-0ring-white top-0 right-0 h-1 w-1 md:h-2 md:w-2" />
         </div>
     </div>
 </template>
