@@ -1,4 +1,5 @@
 <template lang="">
+  <NuxtScrollbar tag="div">
     <div className="flex-1 overflow-y-auto">
         <MessageBox 
           :isOwn="true"
@@ -67,6 +68,7 @@
         />
       <div className="pt-24" />
     </div>
+  </NuxtScrollbar>
 </template>
 <script setup lang="ts">
 import MessageBox from './MessageBox.vue';

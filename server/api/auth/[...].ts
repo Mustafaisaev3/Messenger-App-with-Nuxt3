@@ -7,10 +7,11 @@ import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from '@prisma/client'
+import { AuthOptions } from "next-auth"
 
 const prisma = new PrismaClient();
 
-export default NuxtAuthHandler({
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     // @ts-ignore
@@ -75,4 +76,6 @@ export default NuxtAuthHandler({
     strategy: "jwt",
   },
   secret: useRuntimeConfig().authSecret,
-})
+}
+
+export default NuxtAuthHandler(authOptions)

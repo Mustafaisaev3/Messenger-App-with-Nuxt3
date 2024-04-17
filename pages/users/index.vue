@@ -1,9 +1,17 @@
 <template>
-    <div class="w-full h-screen text-xxl text-amber-700">
-        Users <button class="text-[red]" @click="signOut()">Log Out</button>
-    </div>
+  <div class="w-full h-full flex">
+    <UserList :users="users" :loading="loading" :error="error" />
+    <Conversation />
+  </div>
+    
 </template>
+
 <script setup lang="ts">
-// import { useAuth } from '@sidebase/nuxt-auth'
-const { signOut } = useAuth()
+import Conversation from '~/components/chat/Conversation.vue';
+import UserList from '~/components/users/UserList.vue'
+import { type SafeUser } from '~/types/index'
+import { USERS_API_URL } from '~/lib/api/users-api'
+
+
+const { data: users, pending: loading, error } = await useFetch(USERS_API_URL.getUsers)
 </script>

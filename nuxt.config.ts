@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss', 
     'shadcn-nuxt',
     '@sidebase/nuxt-auth',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@davestewart/nuxt-scrollbar'
   ],
   extends: ['nuxt-emoji'],
   components: [

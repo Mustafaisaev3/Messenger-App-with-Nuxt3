@@ -6,41 +6,31 @@ import bcrypt from 'bcrypt'
 import prisma from '@/lib/prismadb'
 
 export default defineEventHandler(async (event: H3Event) => {
-    try {
+  try {  
+      const { name, email, password } = await readBody(event); 
 
-        const { name, email, password } = await readBody(event);
-
-        console.log(name, email, password);
-
-        if (!email || !name || !password) {
-
-            throw createError({
-                statusCode: 500,
-                statusMessage: 'Missing Info'
-            })
-
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 12);
-        const user = await prisma.user.create({
-            data: {
-                email,
-                hashedPassword,
-                name
-            }
-        })
-
-        return { user }
-
-
-    } catch (error) {
-
-
+      console.log(name, email, password);  
+      
+      if (!email || !name || !password) {  
         throw createError({
             statusCode: 500,
-            statusMessage: 'Something Went Wrong'
-        })
+            statusMessage: 'Missing Info'
+        })  
+      }  
 
-
-    }
+      const hashedPassword = await bcrypt.hash(password, 12);
+      const user = await prisma.user.create({
+        data: {
+            email,
+            hashedPassword,
+            name
+        }
+      })  
+      return { user }  
+  } catch (error) {  
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Something Went Wrong'
+    })  
+  }
 })

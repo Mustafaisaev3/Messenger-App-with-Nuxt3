@@ -14,7 +14,7 @@
 import AuthForm from '@/components/auth/AuthForm.vue'
 
 definePageMeta({
-    layout: 'auth'
+  layout: 'auth'
 })
 
 </script>

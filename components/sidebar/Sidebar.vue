@@ -48,6 +48,11 @@ const sidebarLinks = [
   },
   {
     label: "Группы",
+    icon: 'ci:chat-conversation',
+    path: "/groups",
+  },
+  {
+    label: "Друзья",
     icon: 'mdi:account-supervisor-outline',
     path: "/users",
   },
