@@ -19,11 +19,11 @@
     
     <Input placeholder="Search user" leftIcon="mdi:magnify"  />
 
-    <div v-if="loading">
-      Loading
-    </div>
-    <NuxtScrollbar v-else tag="div">
-    <ul class="w-full h-auto flex-1 overflow-y-auto mt-4 flex flex-col gap-2">
+    <NuxtScrollbar tag="div">
+    <ul v-if="loading"  class="w-full h-auto flex-1 overflow-y-auto mt-4 flex flex-col gap-2">
+      <UserBoxSkeleton v-for="item in 10" :key="item"/>
+    </ul>
+    <ul v-else class="w-full h-auto flex-1 overflow-y-auto mt-4 flex flex-col gap-2">
       <UserBox v-for="user in users" :id="user.id" :user="user" />
     </ul>
     </NuxtScrollbar>
@@ -33,6 +33,7 @@
 <script setup lang="ts">
 import { type SafeUser } from '~/types';
 import UserBox from './UserBox.vue'
+import UserBoxSkeleton from './UserBoxSkeleton.vue'
 
 interface UserListProps {
   users: SafeUser[] | undefined,
