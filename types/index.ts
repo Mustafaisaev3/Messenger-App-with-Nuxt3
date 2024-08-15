@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import type { Conversation, Message, User } from "@prisma/client";
 
 export type SafeUser = Omit<
   User,
@@ -9,7 +9,15 @@ export type SafeUser = Omit<
   emailVerified: string | null,
 }
 
+export type FullMessageType = Message & {
+  sender: User,
+  seen: User[]
+}
 
+export type FullConversationType = Conversation & {
+  users: User[],
+  messages: FullMessageType[]
+}
 
 // API RESPONSE INTERFACE
 export enum ResponseStatus {
@@ -21,4 +29,9 @@ export interface ResponseType {
   status: ResponseStatus,
   message?: string,
   data?: any
+}
+
+export enum ConversationExistingType {
+  EXISTED = 'EXISTED',
+  NEW = 'NEW',
 }

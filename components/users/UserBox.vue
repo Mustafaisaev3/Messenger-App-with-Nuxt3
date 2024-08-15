@@ -27,25 +27,31 @@
 <script setup lang="ts">
 import { toast } from 'vue3-toastify';
 import Avatar from '../Avatar.vue';
-import { type SafeUser } from '~/types';
-import { createNewConversation } from '~/lib/api/conversation'
+import { ConversationExistingType, type SafeUser } from '~/types';
+import { beginConversation } from '~/lib/api/conversation'
 
 const loading = ref(false)
 
-interface UserProps {
+interface UserBoxProps {
   user: SafeUser | null
 }
 
-const { user } = defineProps<UserProps>()
+const { user } = defineProps<UserBoxProps>()
 
 const handleUserClick = async () => {
-  const response = await createNewConversation(user!.id)  
-  
-  console.log(response)
-  toast.success('Новый чат!', {
+  const { existType, conversation } = await beginConversation(user!.id)  
+
+  if (existType == ConversationExistingType.NEW) {
+    toast.success('Новый чат!', {
       position: toast.POSITION.TOP_CENTER,
       theme: 'dark'
-  })
+    })
+  } else if (existType == ConversationExistingType.EXISTED) {
+    toast.success('Существующий чат!', {
+      position: toast.POSITION.TOP_CENTER,
+      theme: 'dark'
+    })
+  }
 } 
 
 

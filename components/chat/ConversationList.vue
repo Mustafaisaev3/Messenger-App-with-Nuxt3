@@ -4,6 +4,14 @@
     <Input placeholder="Search here" leftIcon="mdi:magnify"  />
     <NuxtScrollbar tag="aside">
       <ul class="w-full h-auto flex-1 overflow-y-auto mt-4 flex flex-col gap-2">
+        <ConversationBox 
+          v-for="conversation in initialItems" 
+          :key="conversation.id"
+          :data="conversation"
+          :selected="conversationId === conversation.id"
+        />
+        
+        <!-- <ConversationBox />
         <ConversationBox />
         <ConversationBox />
         <ConversationBox />
@@ -16,21 +24,26 @@
         <ConversationBox />
         <ConversationBox />
         <ConversationBox />
-        <ConversationBox />
-        <ConversationBox />
-        <ConversationBox />
+        <ConversationBox /> -->
       </ul>
     </NuxtScrollbar>
   </div>
 </template>
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+import type { FullConversationType } from '@/types'
+import useConversation from '@/composables/useConversation'
 import Input from '../Input.vue';
 import ConversationBox from './ConversationBox.vue';
-import { getAllConversations } from '~/lib/api/conversation'
 
-const response = await getAllConversations()
-console.log(response, 'conversations')
+interface ConversationListProps {
+  initialItems: FullConversationType[]
+}
 
+const { initialItems } = defineProps<ConversationListProps>()
 
+const route = useRoute();
+
+const { conversationId, isOpen } = useConversation()
 
 </script>

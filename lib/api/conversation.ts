@@ -1,7 +1,7 @@
-
+import type { FullConversationType } from '@/types'
 
 // Функция для создания нового чата
-export const createNewConversation = (
+export const beginConversation = (
   userId: string,
 ) => {
   return $fetch('/api/conversations/conversations', {
@@ -14,7 +14,7 @@ export const createNewConversation = (
 
 // Функция для получения всех чатов
 export const getAllConversations = () => {
-  return $fetch('/api/conversations/conversations', {
+  return $fetch<FullConversationType[]>('/api/conversations/conversations', {
     method: 'get',
   });
 };
