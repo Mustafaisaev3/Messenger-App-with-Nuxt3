@@ -4,10 +4,10 @@
       <Avatar />
     </div>
     <div>
-        <div class="flex flex-col gap-2 p-2 rounded-xl rounded-bl-none bg-[#1b2439] text-white" :class="{'items-end bg-[#ff4f8f] rounded-bl-xl rounded-br-none text-white': isOwn}">
+        <div class="flex flex-col gap-2 p-2 rounded-xl rounded-bl-none bg-[#1b2439] text-white" :class="{'items-end bg-[#ff4f906e] rounded-bl-xl rounded-br-none text-white': isOwn}">
           <div class="flex items-center gap-1">
             <div class="text-sm">
-              Messageasdfsasdfsdfsdfsdfsdfsdfsdf
+              {{ data.body }}
             </div>
           </div>
           <div class="text-sm w-fit overflow-hidden">
@@ -32,22 +32,39 @@
             )} -->
           </div>
         </div>
-        <div v-if="isOwn" class="pt-1 text-xs text-right font-light text-gray-500">
-          Message seen 2:20 pm
+        <div v-if="isOwn" class="flex items-end gap-2 pt-1 text-right">
+          <div class=" text-[12px] font-light text-gray-300">
+            {{ data.sender.name }}
+          </div>
+          <div class="text-[10px] font-light text-gray-400">
+            {{ format(new Date(data.createdAt), 'p') }}
+          </div>
         </div>
-        <div v-else="isOwn" class="pt-1 text-xs text-left font-light text-gray-500">
-          Message sent 2:20 pm
+        <div v-else="isOwn" class="flex items-end gap-2 pt-1 text-left">
+          <div class=" text-[12px] font-light text-gray-300">
+            {{ data.sender.name }}
+          </div>
+          <div class="text-[10px] font-light text-gray-400">
+            {{ format(new Date(data.createdAt), 'p') }}
+          </div>
         </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import Avatar from '~/components/Avatar.vue';
+import type { FullMessageType } from '~/types';
+import { format } from "date-fns";
 
 interface MessageBoxTypes {
-  isOwn: boolean;
+  data: FullMessageType
 }
 
-const { isOwn } = defineProps<MessageBoxTypes>()
+const { data: session } = useAuth()
 
+const { data } = defineProps<MessageBoxTypes>()
+
+const isOwn = computed(() => session?.value?.user?.email === data?.sender?.email);
+
+console.log(data,isOwn,'message')
 </script>

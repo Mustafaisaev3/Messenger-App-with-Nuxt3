@@ -16,14 +16,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      showDropup: false
-    };
-  }
-};
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const showDropup = ref(false)
 </script>
 
 <style scoped>

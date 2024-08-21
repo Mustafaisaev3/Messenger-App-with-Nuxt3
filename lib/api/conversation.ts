@@ -18,3 +18,10 @@ export const getAllConversations = () => {
     method: 'get',
   });
 };
+
+// Функция для конкретного чата по ID
+export const getConversationById = (conversationId: string) => {
+  return $fetch<FullConversationType>(`/api/conversations/${conversationId}`, {
+    method: 'get',
+  });
+};

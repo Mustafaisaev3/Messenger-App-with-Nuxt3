@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full flex">
     <UserList :users="users" :loading="loading" :error="error" />
-    <Conversation :loading="true" />
+    <!-- <Conversation :loading="true" /> -->
   </div>
     
 </template>

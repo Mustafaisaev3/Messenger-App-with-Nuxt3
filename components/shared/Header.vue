@@ -10,8 +10,8 @@
         <DropdownMenu>
           <DropdownMenuTrigger>
             <div class="flex items-center gap-2 text-white">
-                <div class="w-[30px] h-[30px] rounded-full bg-cyan-300"></div>
-                <div>Test User</div>
+                <Avatar :user="currentUser" />
+                <div>{{  currentUser.name  }}</div>
                 <IconCSS name="mdi:chevron-down" class="text-[20px] text-white" />
             </div>
           </DropdownMenuTrigger>
@@ -28,6 +28,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,15 +37,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import Avatar from '@/components/Avatar.vue'
+
+
+const { data } = useAuth()
+
+const currentUser = computed(() => data.value?.user)
+
 </script>
-
-
-
-function returnBetweens (a,b) {
-    const result = []
-    for (let i=a; i < b; i++ ) {
-        result.push(i)
-    }
-
-    return result
-}

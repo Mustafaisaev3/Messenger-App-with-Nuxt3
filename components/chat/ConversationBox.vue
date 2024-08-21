@@ -52,7 +52,7 @@ console.log(sessionData, 'current user')
 
 
 const handleClick = () => {
-  router.push(`/conversations/${data.id}`);
+  router.push(`/chat/${data.id}`);
 };
 
 const lastMessage = computed(() => {
@@ -60,6 +60,8 @@ const lastMessage = computed(() => {
 
   return messages[messages.length - 1];
 });
+
+console.log(lastMessage, data.messages, 'last message')
 
 const userEmail = computed(() => sessionData.value?.user?.email);
 
