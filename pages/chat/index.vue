@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full flex">
     <ConversationList :initialItems="conversations" />
-    <div className="h-full w-full flex flex-col grow">
+    <div className="h-full w-full flex flex-col grow" style="width: 100%">
       <EmptyChat />
     </div>
   </div>

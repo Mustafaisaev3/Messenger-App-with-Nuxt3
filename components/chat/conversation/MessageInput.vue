@@ -1,5 +1,5 @@
 <template>
-    <form class="w-full h-[60px] mt-2 relative flex justify-between gap-2 items-center px-4 py-3 bg-[#1b2439] rounded-md transition" @submit="onSubmit">
+    <!-- <form class="w-full h-[60px] mt-2 relative flex justify-between gap-2 items-center px-4 py-3 bg-[#1b2439] rounded-md transition" @submit="onSubmit">
       <Dropup />
       <input
         placeholder="Type a message..."
@@ -22,7 +22,8 @@
       <button class="bg-[#ff4f8f] w-[40px] h-[40px] flex items-center justify-center rounded-sm ml-2">
         <IconCSS name="mdi:send-outline" class="text-white text-xl"/>
       </button>
-    </form>
+    </form> -->
+    <CaptureAudio :hide="() => {}" />
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -31,6 +32,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useField, useForm } from 'vee-validate'
 import { sendMessage } from '@/lib/api/messages.ts'
 import Dropup from './Dropup'
+import CaptureAudio from '@/components/CaptureAudio'
 
 interface MessageInputProps {
   conversationId: string
