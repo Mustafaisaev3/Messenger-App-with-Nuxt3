@@ -28,13 +28,19 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { storage, db, ref as storageRef, uploadBytes, getDownloadURL, collection, addDoc } from '@/firebase.ts'
 import WaveSurfer from 'wavesurfer.js'
+import { formatTime } from '@/lib/utils.ts'
+import { sendMessage } from '@/lib/api/messages.ts'
 
-const props = defineProps({
-  hide: Function
-})
+interface CaptureAudioProps {
+  hide: () => any,
+  conversationId: string
+}
+
+const { hide, conversationId } = defineProps<CaptureAudioProps>()
 
 const isRecording = ref(false)
 const recordedAudio = ref(null)
@@ -167,17 +173,22 @@ const handlePauseRecording = () => {
 }
 
 const sendRecording = async () => {
-    // Нужно реализовать отправку аудиозаеписи
+  if (!renderedAudio.value) return
+
+  const storageRefLink = storageRef(storage, `recordings/${renderedAudio.value.name}`)
+  const uloadAudioResponse = await uploadBytes(storageRefLink, renderedAudio.value)
+  const audioUrl = await getDownloadURL(storageRefLink)
+
+  const response = await sendMessage({
+    audioUrl,
+    conversationId,
+  });
+
+  console.log(uloadAudioResponse, 'Firebase message response')
+  console.log(response, 'Audio message response')
+  console.log('Audio message sent successfully', audioUrl)
 }
 
-const formatTime = (time) => {
-  if (isNaN(time)) return "00:00"
-
-  const minutes = Math.floor(time / 60)
-  const seconds = Math.floor(time % 60)
-
-  return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
-}
 </script>
 
 <style scoped>

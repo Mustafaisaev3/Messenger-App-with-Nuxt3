@@ -23,7 +23,7 @@
         <IconCSS name="mdi:send-outline" class="text-white text-xl"/>
       </button>
     </form> -->
-    <CaptureAudio :hide="() => {}" />
+    <CaptureAudio :conversationId="conversationId" :hide="() => {}" />
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'

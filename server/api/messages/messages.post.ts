@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
     const currentUser = await getCurrentUser(event)
     const {  
         message,
+        audioUrl,
         image,
         conversationId
     } = await readBody(event);
@@ -25,6 +26,7 @@ export default defineEventHandler(async (event) => {
       data: {
         body: message,
         image: image,
+        audioUrl: audioUrl,
         conversation: {
           connect: { id: conversationId }
         },
