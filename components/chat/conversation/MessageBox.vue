@@ -6,8 +6,7 @@
     <div>
         <div class="flex flex-col gap-2 p-2 rounded-xl rounded-bl-none bg-[#1b2439] text-white" :class="{'items-end bg-[#ff4f9030] rounded-bl-xl rounded-br-none text-white': isOwn}">
           <div class="flex items-center gap-1">
-            <!-- <MessageAudio v-if="data.audioUrl" :audioUrl="data.audioUrl" /> -->
-            <Wave v-if="data.audioUrl" :url="'https://lawmusix.ru/uploads/public_files/2022-10/linkin-park-numb.mp3'" />
+            <MessageAudio v-if="data.audioUrl" :audioUrl="data.audioUrl" />
             <div v-else class="text-sm">
               {{ data.body }}
             </div>
@@ -58,7 +57,6 @@ import Avatar from '~/components/Avatar.vue';
 import type { FullMessageType } from '~/types';
 import { format } from "date-fns";
 import MessageAudio from './MessageAudio.vue'
-import Wave from './Wave.vue'
 
 interface MessageBoxTypes {
   data: FullMessageType

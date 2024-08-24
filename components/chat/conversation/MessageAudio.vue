@@ -1,4 +1,11 @@
 <template>
+  <div class="flex text-2xl w-[400px] justify-center items-center bg-[#1b2439] p-4 rounded-lg shadow-lg">
+    <audio controls class="w-full">
+      <source :src="audioUrl" type="audio/mpeg">
+    </audio>
+  </div>
+</template>
+<!-- <template>
   <div class="flex text-2xl w-full justify-center items-center bg-[#1b2439] p-4 rounded-lg shadow-lg">
     <div ref="waveFormRef" class="waveform w-full h-[100px] mb-4"></div>
     <div class="controls flex items-center justify-center w-full">
@@ -12,7 +19,7 @@
       </div>
     </div>
   </div>
-</template>
+</template> -->
 
 <script setup lang="ts">
 import { ref, onMounted, watch, onBeforeUnmount } from 'vue'
@@ -25,78 +32,78 @@ interface MessageAudioProps {
 
 const { audioUrl } = defineProps<MessageAudioProps>()
 
-const audioMessage = ref()
-const currentPlaybackTime = ref(0)
-const totalDuration = ref(0)
-const isPlaying = ref(false)
+// const audioMessage = ref()
+// const currentPlaybackTime = ref(0)
+// const totalDuration = ref(0)
+// const isPlaying = ref(false)
 
-const waveFormRef = ref()
-const waveform = ref()
+// const waveFormRef = ref()
+// const waveform = ref()
 
-onMounted(() => {
-  if (!waveform.value) {
-    waveform.value = WaveSurfer.create({
-      container: waveFormRef.value,
-      waveColor: "#ccc",
-      progressColor: "#4a9eff",
-      cursorColor: "#ff4f8f",
-      barWidth: 2,
-      height: 30,
-      // responsive: true
-    })
+// onMounted(() => {
+//   if (!waveform.value) {
+//     waveform.value = WaveSurfer.create({
+//       container: waveFormRef.value,
+//       waveColor: "#ccc",
+//       progressColor: "#4a9eff",
+//       cursorColor: "#ff4f8f",
+//       barWidth: 2,
+//       height: 30,
+//       // responsive: true
+//     })
 
-    console.log(waveform.value, 'value wave')
+//     console.log(waveform.value, 'value wave')
 
-    waveform.value.on("finish", () => {
-      isPlaying.value = false
-    })
+//     waveform.value.on("finish", () => {
+//       isPlaying.value = false
+//     })
 
-    waveform.value.on("ready", () => {
-      totalDuration.value = waveform.value.getDuration()
-    })
+//     waveform.value.on("ready", () => {
+//       totalDuration.value = waveform.value.getDuration()
+//     })
 
-    waveform.value.on("error", (error) => {
-      console.error("WaveSurfer error:", error)
-    })
-  }
+//     waveform.value.on("error", (error) => {
+//       console.error("WaveSurfer error:", error)
+//     })
+//   }
 
-  const audio = new Audio(audioUrl)
-  audioMessage.value = audio
-  waveform.value.load(audioUrl).catch((error) => {
-    console.error("Failed to load audio:", error)
-  })
-})
+//   const audio = new Audio(audioUrl)
+//   audioMessage.value = audio
+//   waveform.value.load(audioUrl).catch((error) => {
+//     console.error("Failed to load audio:", error)
+//   })
+// })
 
-watch(audioMessage.value, (newVal) => {
-  if (newVal) {
-    const updatePlaybackTime = () => {
-      currentPlaybackTime.value = newVal.currentTime
-    }
+// watch(audioMessage.value, (newVal) => {
+//   if (newVal) {
+//     const updatePlaybackTime = () => {
+//       currentPlaybackTime.value = newVal.currentTime
+//     }
 
-    newVal.addEventListener("timeupdate", updatePlaybackTime)
+//     newVal.addEventListener("timeupdate", updatePlaybackTime)
 
-    return () => {
-      newVal.removeEventListener("timeupdate", updatePlaybackTime)
-    }
-  }
-})
+//     return () => {
+//       newVal.removeEventListener("timeupdate", updatePlaybackTime)
+//     }
+//   }
+// })
 
-const handlePlayPauseAudio = () => {
-  if (isPlaying.value) {
-    waveform.value.pause()
-    audioMessage.value.pause()
-  } else {
-    waveform.value.play()
-    audioMessage.value.play()
-  }
-  isPlaying.value = !isPlaying.value
-}
+// const handlePlayPauseAudio = () => {
+//   if (isPlaying.value) {
+//     waveform.value.pause()
+//     audioMessage.value.pause()
+//   } else {
+//     waveform.value.play()
+//     audioMessage.value.play()
+//   }
+//   isPlaying.value = !isPlaying.value
+// }
 
-onBeforeUnmount(() => {
-  if (waveform.value) {
-    waveform.value.destroy()
-  }
-})
+// onBeforeUnmount(() => {
+//   if (waveform.value) {
+//     waveform.value.destroy()
+//   }
+// })
 </script>
 
 <style scoped>
