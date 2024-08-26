@@ -11,6 +11,7 @@
       <Header :conversation="conversation" />
       <Body :initialMessages="messages" />
       <MessageInput :conversationId="conversationId" />
+      <FileUploadModal />
     </div>
 
     <!-- <div v-if="loading" class="w-full h-full absolute top-0 left-0 flex items-center justify-center bg-[#80808050] z-50">
@@ -23,9 +24,9 @@
 import Header from './conversation/Header.vue';
 import Body from './conversation/Body.vue';
 import MessageInput from './conversation/MessageInput.vue';
+import FileUploadModal from '@/components/FileUploadModal.vue'
 import { getConversationById } from '~/lib/api/conversation'
 import { getMessages } from '~/lib/api/messages'
-import Button from '../ui/button/Button.vue';
 
 interface ConversationItemProps {
   conversationId: string,

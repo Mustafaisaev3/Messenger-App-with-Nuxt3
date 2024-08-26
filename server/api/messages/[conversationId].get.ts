@@ -1,11 +1,16 @@
 import prisma from '~/lib/prismadb';
-import getCurrentUser from "~/server/actions/getCurrentUser"
-
+import getCurrentUser from "~/server/actions/getCurrentUser";
 
 export default defineEventHandler(async (event) => {
-  const { conversationId } = event.context.params
+  const params = event.context.params;
+
+  if (!params || !params.conversationId) {
+    return [];
+  }
+
+  const { conversationId } = params;
   const currentUser = await getCurrentUser(event);
-  
+
   if (!currentUser?.id) {
     return [];
   }
@@ -29,4 +34,4 @@ export default defineEventHandler(async (event) => {
   } catch (error: any) {
     return [];
   }
-})
+});

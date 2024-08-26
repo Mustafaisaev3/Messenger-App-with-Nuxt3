@@ -106,7 +106,7 @@ const { audioUrl } = defineProps<MessageAudioProps>()
 // })
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .audio-player {
   background-color: #1b2439;
   padding: 1rem;
@@ -142,4 +142,4 @@ const { audioUrl } = defineProps<MessageAudioProps>()
 .time-display {
   color: #cbd5e0;
 }
-</style>
+</style> -->

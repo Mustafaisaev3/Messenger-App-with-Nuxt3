@@ -64,21 +64,33 @@ model Conversation {
   users User[] @relation(fields: [userIds], references: [id])
 }
 
-model Message {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  body String?
-  image String?
-  audioUrl String?
+model File {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  type      String   // Тип файла (например, 'pdf', 'video', 'audio', 'image')
   createdAt DateTime @default(now())
 
-  seenIds String[] @db.ObjectId
-  seen User[] @relation("Seen", fields: [seenIds], references: [id])
+  messageId String?  @db.ObjectId
+  message   Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  body        String?
+  image       String?
+  audioUrl    String?
+  createdAt   DateTime @default(now())
+
+  seenIds     String[] @db.ObjectId
+  seen        User[]   @relation("Seen", fields: [seenIds], references: [id])
 
   conversationId String @db.ObjectId
-  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  senderId String @db.ObjectId
-  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  senderId     String @db.ObjectId
+  sender       User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  files        File[]
 }
 
 model Image {
