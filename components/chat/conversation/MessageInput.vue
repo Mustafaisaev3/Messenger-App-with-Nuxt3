@@ -77,7 +77,6 @@ const onSubmit = handleSubmit(async (values) => {
   isSubmitting.value = true;
 
   try {
-
     const response = await sendMessage({
       message: values.message,
       conversationId,

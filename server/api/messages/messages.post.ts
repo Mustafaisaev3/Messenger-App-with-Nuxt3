@@ -11,21 +11,20 @@ interface CreatedFile {
 export default defineEventHandler(async (event) => {
   try {
     const currentUser = await getCurrentUser(event);
-    const formData = await readFormData(event)
+    const formData = await readFormData(event);
 
     if (!formData) {
       throw createError({
         statusCode: 500,
-      statusMessage: 'Data not provided',
+        statusMessage: 'Data not provided',
       });
     }
-    
+
     const message = formData.get('message') as string;
     const audioUrl = formData.get('audioUrl') as string;
     const image = formData.get('image') as string;
     const files = formData.getAll('files') as File[];
     const conversationId = formData.get('conversationId') as string;
-
 
     if (!currentUser?.id || !currentUser?.email) {
       throw createError({
@@ -48,12 +47,14 @@ export default defineEventHandler(async (event) => {
         const storageRef = ref(storage, `files/${file.name}`);
         await uploadBytes(storageRef, file);
         const fileUrl = await getDownloadURL(storageRef);
-        return prisma.file.create({
+        const createdFile = await prisma.file.create({
           data: {
             url: fileUrl,
             type: file.type,
           }
         });
+        console.log(`Created file: ${createdFile.id}`); // Логирование созданного файла
+        return createdFile;
       });
 
       createdFiles = await Promise.all(filePromises);
@@ -87,6 +88,8 @@ export default defineEventHandler(async (event) => {
         }
       }
     });
+
+    console.log(`Created message: ${newMessage}`); // Логирование созданного сообщения
 
     const updatedConversation = await prisma.conversation.update({
       where: {

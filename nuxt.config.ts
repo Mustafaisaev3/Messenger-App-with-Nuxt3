@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@sidebase/nuxt-auth',
     'nuxt-icon',
-    '@davestewart/nuxt-scrollbar'
+    '@davestewart/nuxt-scrollbar',
+    '@pinia/nuxt',
   ],
   extends: ['nuxt-emoji'],
   components: [

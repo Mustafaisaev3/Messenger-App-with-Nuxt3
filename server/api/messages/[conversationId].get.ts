@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
         conversationId: conversationId
       },
       include: {
+        files: true,
         sender: true,
         seen: true,
       },

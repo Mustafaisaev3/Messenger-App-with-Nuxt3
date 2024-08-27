@@ -4,10 +4,13 @@
     <transition name="fade">
       <div v-if="showDropup" class="dropup-content absolute left-0 right-0 bottom-[100%] pb-2 flex flex-col gap-2 items-center">
 
-        <div class="w-10 h-10 group rounded-full bg-[#1b2439] border border-[#ff4f8f] cursor-pointer hover:bg-[#ff4f8f] flex items-center justify-center">
-          <IconCSS name="mdi:camera-outline" class="text-[#ff4f8f] group-hover:text-[white]"/>
-        </div>
-        <div class="w-10 h-10 group rounded-full bg-[#1b2439] border border-[#ff4f8f] cursor-pointer hover:bg-[#ff4f8f] flex items-center justify-center">
+        <label for="image-video-upload">
+          <div class="w-10 h-10 group rounded-full bg-[#1b2439] border border-[#ff4f8f] cursor-pointer hover:bg-[#ff4f8f] flex items-center justify-center">
+            <input id="image-video-upload" type="file" ref="fileInput" multiple accept="image/*,video/*" class="hidden" @change="handleImageAndVideoChange" />
+            <IconCSS name="mdi:camera-outline" class="text-[#ff4f8f] group-hover:text-[white]"/>
+          </div>
+        </label>
+        <div @click="openModal" class="w-10 h-10 group rounded-full bg-[#1b2439] border border-[#ff4f8f] cursor-pointer hover:bg-[#ff4f8f] flex items-center justify-center">
           <IconCSS name="mdi:file-outline" class="text-[#ff4f8f] group-hover:text-[white]"/>
         </div>
 
@@ -17,9 +20,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { uiStore, ModalViewType } from '~/stores/ui'
+
+const selectedFiles = ref<File[]>([]);
+
+const handleImageAndVideoChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files) {
+    selectedFiles.value = Array.from(target.files);
+  }
+}
+
+watch(selectedFiles, (newFiles, oldFiles) => {
+  console.log('files change', newFiles)
+  openModal(ModalViewType.PhotoAndVideoUploadView, newFiles)
+});
+
+const { openModal } = uiStore()
 
 const showDropup = ref(false)
+
 </script>
 
 <style scoped>

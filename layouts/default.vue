@@ -7,11 +7,13 @@
                 <slot></slot>
             </div>
             <MobileFooter />
+            <Modal />
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import Sidebar from '../components/sidebar/Sidebar.vue';
-import Header from '../components/shared/Header.vue';
+import Sidebar from '~/components/sidebar/Sidebar.vue';
+import Header from '~/components/shared/Header.vue';
 import MobileFooter from '~/components/sidebar/MobileFooter.vue';
+import Modal from '~/components/ui/modal/Modal.vue';
 </script>
