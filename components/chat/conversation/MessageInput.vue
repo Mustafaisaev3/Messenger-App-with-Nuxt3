@@ -1,5 +1,5 @@
 <template>
-    <form v-if="messageInputMode === MessageInputMode.MESSAGE" class="w-full h-[60px] mt-2 relative flex justify-between gap-2 items-center px-4 py-3 bg-[#1b2439] rounded-md transition" @submit="onSubmit">
+    <form v-if="messageInputMode === MessageInputMode.MESSAGE" enctype="multipart/form-data" accept-charset="UTF-8" class="w-full h-[60px] mt-2 relative flex justify-between gap-2 items-center px-4 py-3 bg-[#1b2439] rounded-md transition" @submit="onSubmit">
       <Dropup />
       <input
         placeholder="Type a message..."

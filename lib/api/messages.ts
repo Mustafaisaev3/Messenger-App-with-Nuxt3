@@ -42,7 +42,7 @@ export const sendMessage = async ({ message, audioUrl, files, conversationId }: 
 
   if (files && files.length > 0) {
     files.forEach(file => {
-      formData.append('files', file);
+      formData.append('files', file, encodeURIComponent(file.name)); // Кодирование имени файла
     });
   }
 

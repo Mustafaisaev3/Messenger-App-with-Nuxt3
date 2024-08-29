@@ -10,9 +10,12 @@
             <IconCSS name="mdi:camera-outline" class="text-[#ff4f8f] group-hover:text-[white]"/>
           </div>
         </label>
-        <div @click="openModal" class="w-10 h-10 group rounded-full bg-[#1b2439] border border-[#ff4f8f] cursor-pointer hover:bg-[#ff4f8f] flex items-center justify-center">
-          <IconCSS name="mdi:file-outline" class="text-[#ff4f8f] group-hover:text-[white]"/>
-        </div>
+        <label for="file-upload">
+          <div class="w-10 h-10 group rounded-full bg-[#1b2439] border border-[#ff4f8f] cursor-pointer hover:bg-[#ff4f8f] flex items-center justify-center">
+            <input id="file-upload" type="file" ref="fileInput" multiple class="hidden" @change="handleImageAndVideoChange" />
+            <IconCSS name="mdi:file-outline" class="text-[#ff4f8f] group-hover:text-[white]"/>
+          </div>
+        </label>
 
       </div>
     </transition>

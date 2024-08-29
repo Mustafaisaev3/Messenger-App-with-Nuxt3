@@ -7,7 +7,7 @@ type ConfirmationModalDataType = {
 }
 
 export enum ModalViewType {
-  PhotoAndVideoUploadView = 'PhotoAndVideoUploadView'
+  FileUploadModalView = 'FileUploadModalView'
 }
 
 // Определяем тип состояния для хранилища ui

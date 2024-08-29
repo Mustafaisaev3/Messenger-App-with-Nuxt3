@@ -1,4 +1,4 @@
-import type { Conversation, Message, User } from "@prisma/client";
+import type { Conversation, Message, User, File } from "@prisma/client";
 
 export type SafeUser = Omit<
   User,
@@ -10,6 +10,7 @@ export type SafeUser = Omit<
 }
 
 export type FullMessageType = Message & {
+  files: File[],
   sender: User,
   seen: User[]
 }

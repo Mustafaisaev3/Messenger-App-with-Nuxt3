@@ -44,13 +44,16 @@ export default defineEventHandler(async (event) => {
 
     if (files && files.length > 0) {
       const filePromises = files.map(async (file: File) => {
-        const storageRef = ref(storage, `files/${file.name}`);
+        const fileName = decodeURIComponent(file.name); // Декодирование имени файла
+        const storageRef = ref(storage, `files/${fileName}`);
         await uploadBytes(storageRef, file);
         const fileUrl = await getDownloadURL(storageRef);
         const createdFile = await prisma.file.create({
           data: {
             url: fileUrl,
             type: file.type,
+            name: fileName, // Использование декодированного имени файла
+            size: file.size
           }
         });
         console.log(`Created file: ${createdFile.id}`); // Логирование созданного файла

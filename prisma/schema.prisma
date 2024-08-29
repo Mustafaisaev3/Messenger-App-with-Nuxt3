@@ -22,7 +22,7 @@ model User {
 
   conversationIds String[] @db.ObjectId
   conversations Conversation[] @relation(fields: [conversationIds], references: [id])
-  
+
   seenMessageIds String[] @db.ObjectId
   seenMessages Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
 
@@ -56,7 +56,7 @@ model Conversation {
   lastMessageAt DateTime @default(now())
   name String?
   isGroup Boolean?
-  
+
   messagesIds String[] @db.ObjectId
   messages Message[]
 
@@ -68,6 +68,8 @@ model File {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   url       String
   type      String   // Тип файла (например, 'pdf', 'video', 'audio', 'image')
+  size      Int      // Размер файла в байтах
+  name      String   // Имя файла
   createdAt DateTime @default(now())
 
   messageId String?  @db.ObjectId
@@ -98,7 +100,7 @@ model Image {
   imageUrl String?
   public_id String?
   createdAt DateTime @default(now())
-  
+
   userId String @db.ObjectId
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

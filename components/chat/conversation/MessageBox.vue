@@ -21,9 +21,9 @@
               @click="openMediaModal(data.image, 'image')"
             />
           </div>
-          <!-- Отображение файлов -->
-          <div v-if="data.files && data.files.length > 0" :class="gridClasses">
-            <div v-for="file in data.files" :key="file.id" class="relative col-span-1">
+          <!-- Отображение Медиа файлов -->
+          <div v-if="mediaFiles && mediaFiles.length > 0" :class="gridClasses">
+            <div v-for="file in mediaFiles" :key="file.id" class="relative col-span-1">
               <template v-if="file.type.startsWith('image/')">
                 <img
                   :src="file.url"
@@ -39,9 +39,23 @@
                   @click="openMediaModal(file.url, 'video')"
                 ></video>
               </template>
-              <template v-else>
-                <a :href="file.url" target="_blank" class="text-blue-500 underline">{{ file.type }}</a>
-              </template>
+            </div>
+          </div>
+          <!-- Отображение других файлов -->
+          <div v-if="otherFiles && otherFiles.length > 0" class="mt-2">
+            <div v-for="file in otherFiles" :key="file.id" class="pb-1">
+              <div class="flex items-center gap-2 py-1 px-2 bg-gray-800 rounded">
+                <IconCSS :name="getFileIconName(file.name)" class="text-[#ff4f8f] group-hover:text-[white] text-2xl" />
+                <div class="flex flex-col">
+                  <div class="text-white text-sm">{{ file.name }}</div>
+                  <div class="text-gray-400 text-xs">{{ formatFileSize(file.size) }}</div>
+                </div>
+                <a :href="file.url" target="_blank" class="ml-auto text-blue-500 cursor-pointer">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -77,16 +91,22 @@
         <img v-if="mediaType === 'image'" :src="mediaUrl" alt="Image" class="w-full h-auto rounded" />
         <video v-else-if="mediaType === 'video'" :src="mediaUrl" controls class="w-full h-auto rounded"></video>
       </div>
+      <button @click="downloadMedia" class="mt-2 text-blue-500 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 import Avatar from '~/components/Avatar.vue';
 import type { FullMessageType } from '~/types';
 import { format } from "date-fns";
+import { formatFileSize, getFileIconName } from '@/lib/utils.ts'
 import MessageAudio from './MessageAudio.vue';
-import { ref, computed } from 'vue';
 
 interface MessageBoxTypes {
   data: FullMessageType
@@ -114,6 +134,16 @@ const closeModal = () => {
   mediaType.value = '';
 };
 
+const downloadMedia = () => {
+  const link = document.createElement('a');
+  link.href = mediaUrl.value;
+  link.download = mediaUrl.value.split('/').pop() || '';
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 const gridClasses = computed(() => {
   if (data.files.length === 1) {
     return 'grid grid-cols-1 gap-4';
@@ -122,5 +152,13 @@ const gridClasses = computed(() => {
   }
 });
 
-console.log(data, isOwn, 'message');
+const mediaFiles = computed(() => {
+  return data.files.filter(file => file.type.startsWith('image/') || file.type.startsWith('video/'));
+});
+
+const otherFiles = computed(() => {
+  return data.files.filter(file => !file.type.startsWith('image/') && !file.type.startsWith('video/'));
+});
+
+console.log(mediaFiles, otherFiles, isOwn, 'message');
 </script>
